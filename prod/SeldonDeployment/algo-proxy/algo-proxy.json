@@ -1,0 +1,75 @@
+{
+    "kind": "SeldonDeployment",
+    "apiVersion": "machinelearning.seldon.io/v1",
+    "metadata": {
+        "name": "algo-proxy",
+        "namespace": "prod",
+        "creationTimestamp": null,
+        "labels": {
+            "fluentd": "true"
+        }
+    },
+    "spec": {
+        "name": "algo-proxy",
+        "predictors": [
+            {
+                "name": "default",
+                "graph": {
+                    "name": "algo-proxy",
+                    "type": "MODEL",
+                    "parameters": [
+                        {
+                            "name": "API_KEY",
+                            "value": "simyu2r8tPayp5wSj5IM5o9iwNo1",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "ALGO_NAME",
+                            "value": "ferrantresearch/resnet32/0.3.0",
+                            "type": "STRING"
+                        }
+                    ],
+                    "logger": {
+                        "mode": "all"
+                    }
+                },
+                "componentSpecs": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": "2021-05-10T10:34:07Z"
+                        },
+                        "spec": {
+                            "containers": [
+                                {
+                                    "name": "algo-proxy",
+                                    "image": "tomfarrand/algorithmia-cliient:0.3",
+                                    "resources": {
+                                        "limits": {
+                                            "cpu": "1",
+                                            "memory": "1Gi",
+                                            "nvidia.com/gpu": "0"
+                                        },
+                                        "requests": {
+                                            "cpu": "100m",
+                                            "memory": "1Gi",
+                                            "nvidia.com/gpu": "0"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "engineResources": {},
+                "svcOrchSpec": {},
+                "traffic": 100
+            }
+        ],
+        "annotations": {
+            "seldon.io/engine-seldon-log-messages-externally": "true"
+        },
+        "protocol": "seldon"
+    },
+    "status": {}
+}
